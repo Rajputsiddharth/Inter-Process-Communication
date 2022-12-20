@@ -1,29 +1,30 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/sched.h>
-
-// Declare a module parameter for the process name
-char *process_name = NULL;
-module_param(process_name, charp, 0);
-MODULE_PARM_DESC(process_name, "Name of the process to search for");
+#include <linux/init.h>
+#include <linux/string.h>
+// Declare a module parameter for the process PID
+int process_pid = 0;
+module_param(process_pid, int, 0644);
+MODULE_PARM_DESC(process_pid, "PID of the process to search for");
 
 // This function is called when the module is loaded
 static int __init process_info_init(void)
 {
-    // Find the task_struct for the process with the specified name
-    struct task_struct *task = find_task_by_vpid(1);
+    // Find the task_struct for the process with the specified PID
+    struct task_struct *task = pid_task(find_vpid(process_pid), PIDTYPE_PID);
 
     // Check if a matching process was found
     if (!task) {
         // No matching process was found
-        printk(KERN_ERR "Error: Process with name '%s' not found\n", process_name);
+        printk(KERN_ERR "Error: Process with PID %d not found\n", process_pid);
         return -ENOENT;
     }
 
     // Extract the requested information from the task_struct
     pid_t pid = task->pid;
     uid_t uid = task->cred->uid;
-    pid_t pgid = task->group_leader->pgrp;
+    pid_t pgid = task->group_leader->pid;
     char *cmd_path = task->comm;
 
     // Print the extracted information to the kernel log buffer
@@ -45,6 +46,4 @@ static void __exit process_info_exit(void)
 module_init(process_info_init);
 module_exit(process_info_exit);
 
-MODULE_AUTHOR("Your Name");
 MODULE_LICENSE("GPL");
-MODULE_DESCRIPTION("Kernel module to print information about a process");
