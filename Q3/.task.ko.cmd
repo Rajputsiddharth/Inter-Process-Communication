@@ -1,0 +1,1 @@
+cmd_/home/sidthecool1/Os_Assignment3/Q3/task.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T scripts/module.lds -o /home/sidthecool1/Os_Assignment3/Q3/task.ko /home/sidthecool1/Os_Assignment3/Q3/task.o /home/sidthecool1/Os_Assignment3/Q3/task.mod.o;  true

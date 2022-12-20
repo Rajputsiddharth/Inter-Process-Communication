@@ -3,6 +3,7 @@
 #include <linux/sched.h>
 #include <linux/init.h>
 #include <linux/string.h>
+#include <linux/cred.h>
 // Declare a module parameter for the process PID
 int process_pid = 0;
 module_param(process_pid, int, 0644);
@@ -23,7 +24,7 @@ static int __init process_info_init(void)
 
     // Extract the requested information from the task_struct
     pid_t pid = task->pid;
-    uid_t uid = task->cred->uid;
+    kuid_t uid = task->cred->uid;
     pid_t pgid = task->group_leader->pid;
     char *cmd_path = task->comm;
 
