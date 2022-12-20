@@ -48,6 +48,8 @@ int main()
         perror("shmat");
         exit(1);
     }
+    struct timespec startA, endA;
+    clock_gettime(CLOCK_REALTIME, &startA);
     char* str;
     str=shared_mem;
     int index = 0;
@@ -101,5 +103,8 @@ int main()
         perror("shmctl");
         exit(1);
     }
+    clock_gettime(CLOCK_REALTIME, &endA);
+    double timeA = (endA.tv_sec - startA.tv_sec) * 1000000000 + (endA.tv_nsec - startA.tv_nsec);
+    printf("Time taken by process is: %lf\n", (timeA/(long long int)pow(10,9)));
     return 0;
 }
