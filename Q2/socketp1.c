@@ -38,6 +38,8 @@ int main(){
 
     //Connecting to the server
     int len=SUN_LEN(&server_add);
+    struct timespec startA, endA;
+    clock_gettime(CLOCK_REALTIME, &startA);
     int index=0;
     while(1){
         int conn=connect(sock_fd,(struct sockaddr*)&server_add,len);
@@ -67,5 +69,8 @@ int main(){
         }
 
     }
+    clock_gettime(CLOCK_REALTIME, &endA);
+    double timeA = (endA.tv_sec - startA.tv_sec) * 1000000000 + (endA.tv_nsec - startA.tv_nsec);
+    printf("Time taken by process is: %lf\n", (timeA/(long long int)pow(10,9)));
     return 0;
 }
