@@ -10,6 +10,8 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <math.h>
+
 char *socket_path = "socketer";
 int main(int argc, char *argv[])
 {
