@@ -37,6 +37,7 @@ void *philosopher(void *arg){
     
         printf("Philosopher %d is eating\n", *i);
         sleep(1);
+        printf("Philosopher %d has put down the fork %d and %d\n", *i,left(*i),right(*i));
         pthread_mutex_unlock(&sticks[left(*i)]);
         pthread_mutex_unlock(&sticks[right(*i)]);
 
