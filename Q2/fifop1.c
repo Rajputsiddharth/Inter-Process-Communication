@@ -33,6 +33,8 @@ int main(){
 
     //Sending the strings to the FIFO file and receiving the index of the maximum string
     int index=0;
+    struct timespec startA, endA;
+    clock_gettime(CLOCK_REALTIME, &startA);
     while(1){
     for(int i = index;i<index+5;i++){
         strcpy(pass_arr[i-index],send_arr[i]);
@@ -71,5 +73,8 @@ int main(){
         break;
     }
     }
+    clock_gettime(CLOCK_REALTIME, &endA);
+    double timeA = (endA.tv_sec - startA.tv_sec) * 1000000000 + (endA.tv_nsec - startA.tv_nsec);
+    printf("Time taken by process is: %lf\n", (timeA/(long long int)pow(10,9)));
     return 0;
 }
