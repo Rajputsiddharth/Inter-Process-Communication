@@ -5,6 +5,7 @@
 #include<unistd.h>
 #include<sys/ipc.h>
 #include<sys/shm.h>
+#include <math.h>
 
 int main()
 {
