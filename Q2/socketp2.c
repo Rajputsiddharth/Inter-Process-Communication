@@ -1,53 +1,68 @@
+
+
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <unistd.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include <unistd.h>
-
-int main(){
-    //Initializing the array
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <errno.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+char *socket_path = "socketer";
+int main(int argc, char *argv[])
+{
     char sto_arr[5][7];
-    int ret_id;
-
-    //Creating the socket
-    struct sockaddr_un server_add;
-    int conn_fd=socket(AF_UNIX,SOCK_STREAM,0);
-    if(conn_fd==-1){
-        perror("Socket creation failed");
-        exit(EXIT_FAILURE);
+    struct sockaddr_un addr;
+    char buf[100];
+    int fd, cl, rc;
+    if (argc > 1)
+        socket_path = argv[1];
+    if ((fd = socket(AF_UNIX, SOCK_STREAM, 0)) == -1)
+    {
+        perror("socket error");
+        exit(-1);
     }
-    memset(&server_add,0,sizeof(server_add));
-
-    server_add.sun_family=AF_UNIX;
-
-    strcpy(server_add.sun_path,"orange");
-    int len=SUN_LEN(&server_add);
-    int conn=bind(conn_fd,(struct sockaddr*)&server_add,len);
-    if(conn==-1){
-        perror("Connection failed");
-        exit(EXIT_FAILURE);
+    memset(&addr, 0, sizeof(addr));
+    addr.sun_family = AF_UNIX;
+    if (*socket_path == '\0')
+    {
+        *addr.sun_path = '\0';
+        strncpy(addr.sun_path + 1, socket_path + 1,
+                sizeof(addr.sun_path) - 2);
     }
-    int lst=listen(conn_fd,0);
-    if(conn==-1){
-        perror("Connection failed");
-        exit(EXIT_FAILURE);
+    else
+    {
+        strncpy(addr.sun_path, socket_path, sizeof(addr.sun_path) - 1);
+        unlink(socket_path);
     }
-     for (int i = 0; i < 10; i++){
-        
-        int temp_fd=accept(conn_fd,NULL,NULL);
-        if(conn_fd==-1){
-            perror("Connection failed");
-            exit(EXIT_FAILURE);
-        }
-        int read_flag=read(conn_fd,sto_arr,sizeof(sto_arr));
-        if(read_flag<0) 
+    if (bind(fd, (struct sockaddr *)&addr, sizeof(addr)) == -1)
+
+    {
+        perror("bind error");
+        exit(-1);
+    }
+
+    if (listen(fd, 5) == -1)
+    {
+        perror("listen error");
+        exit(-1);
+    }
+
+    if ((cl = accept(fd, NULL, NULL)) == -1)
+    {
+        perror("accept error");
+    }
+    for (int i = 0; i < 10; i++)
+    {
+
+        int read_flag = read(cl, sto_arr, sizeof(sto_arr));
+        if (read_flag < 0)
         {
-            perror("Unable to read from the socket!\n");
+            perror("Unable to read from the Socket!\n");
         }
-
         int index = sto_arr[4][0];
-        ret_id = index;
         for (int j = 0; j < 5; j++)
         {
             char print_arr[6];
@@ -60,13 +75,15 @@ int main(){
         }
         printf("\n");
 
-        int write_flag=write(conn_fd,&ret_id,sizeof(ret_id));
-        if(write_flag<0) 
+        if (fd == -1)
         {
-            perror("Unable to write to the socket!\n");
+            perror("Unable to open the Socket!\n");
+        }
+        int write_flag = write(cl, &index, sizeof(index));
+        if (write_flag < 0)
+        {
+            perror("Unable to write to the Socket!\n");
         }
     }
-    printf("The connection is closed\n");
-    unlink(server_add.sun_path);
     return 0;
 }
