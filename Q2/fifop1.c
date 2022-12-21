@@ -7,6 +7,7 @@
 #include<string.h>
 #include<errno.h>
 #include <math.h>
+#include <time.h>
 
 int main(){
     //Making a FIFO file
