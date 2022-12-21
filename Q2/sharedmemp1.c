@@ -1,3 +1,4 @@
+
 #include<time.h>
 #include<stdio.h>
 #include<stdlib.h>
@@ -6,8 +7,6 @@
 #include<sys/ipc.h>
 #include<sys/shm.h>
 #include <math.h>
-#include <time.h>
-
 int main()
 {
     // Initializing the array
@@ -105,7 +104,7 @@ int main()
         perror("shmctl");
         exit(1);
     }
-    clock_gettime(CLOCK_REALTIME, &endA);
+      clock_gettime(CLOCK_REALTIME, &endA);
     double timeA = (endA.tv_sec - startA.tv_sec) * 1000000000 + (endA.tv_nsec - startA.tv_nsec);
     printf("Time taken by process is: %lf\n", (timeA/(long long int)pow(10,9)));
     return 0;
