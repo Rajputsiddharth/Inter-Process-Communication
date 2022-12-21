@@ -6,6 +6,7 @@
 #include<sys/ipc.h>
 #include<sys/shm.h>
 #include <math.h>
+#include <time.h>
 
 int main()
 {
