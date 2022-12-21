@@ -1,9 +1,10 @@
+
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
 #include<string.h>
 #include<stdlib.h>
-#include <math.h>
+
 
 int main(){
     //Initialising Storage array
@@ -50,6 +51,6 @@ int main(){
     
     shared_mem[0]=retc;
     shared_mem[1]='\0';
-  
+    
     return 0;
 }
