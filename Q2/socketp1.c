@@ -10,6 +10,7 @@
 #include<sys/stat.h>
 #include<fcntl.h>
 #include <math.h>
+#include <time.h>
 
 char *socket_path = "socketer";
 int main(int argc, char *argv[])
@@ -30,7 +31,9 @@ int main(int argc, char *argv[])
         }
         send_arr[i][6]='\0';
     }
-
+    
+    struct timespec startA, endA;
+    clock_gettime(CLOCK_REALTIME, &startA);
     //Sending the strings to the FIFO file and receiving the index of the maximum string
     int index=0;
 
@@ -102,5 +105,8 @@ int main(int argc, char *argv[])
             break;
         }
     }
+    clock_gettime(CLOCK_REALTIME, &endA);
+    double timeA = (endA.tv_sec - startA.tv_sec) * 1000000000 + (endA.tv_nsec - startA.tv_nsec);
+    printf("Time taken by process is: %lf\n", (timeA/(long long int)pow(10,9)));
     return 0;
 }
