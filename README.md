@@ -8,7 +8,7 @@ This repository contains three programs that demonstrate inter-process communica
 
 - **`Socket`**: This program demonstrates inter-process communication using Unix Sockets. Similar to FIFO IPC, it also consists of two programs, `socketp1` and `socketp2`, that exchange strings between each other.
 
-- **`Sharedmem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `sharedmemp1` and `sharedmemp2`, that share strings by utilizing shared memory segments.
+- **`SharedMem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `sharedmemp1` and `sharedmemp2`, that share strings by utilizing shared memory segments.
 
 ## How to Run the Programs
 
@@ -32,7 +32,7 @@ To run the programs, follow these steps:
 
    - For Shared Memory IPC:
      ```
-     cd Sharedmem
+     cd SharedMem
      make
      ```
 
