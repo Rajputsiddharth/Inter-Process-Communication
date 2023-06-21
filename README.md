@@ -4,11 +4,11 @@ This repository contains three programs that demonstrate inter-process communica
 
 ## Program Descriptions
 
-- **`fifo`**: This program implements inter-process communication using FIFOs (named pipes). It consists of two programs, `p1_fifo` and `p2_fifo`, which communicate with each other by sending and receiving strings.
+- **`FIFO`**: This program implements inter-process communication using FIFOs (named pipes). It consists of two programs, `p1_fifo` and `p2_fifo`, which communicate with each other by sending and receiving strings.
 
-- **`socket`**: This program demonstrates inter-process communication using Unix Sockets. Similar to FIFO IPC, it also consists of two programs, `p1_socket` and `p2_socket`, that exchange strings between each other.
+- **`Socket`**: This program demonstrates inter-process communication using Unix Sockets. Similar to FIFO IPC, it also consists of two programs, `p1_socket` and `p2_socket`, that exchange strings between each other.
 
-- **`sharedmem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `p1_shared_memory` and `p2_shared_memory`, that share strings by utilizing shared memory segments.
+- **`Sharedmem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `p1_shared_memory` and `p2_shared_memory`, that share strings by utilizing shared memory segments.
 
 ## How to Run the Programs
 
