@@ -4,11 +4,11 @@ This repository contains three programs that demonstrate inter-process communica
 
 ## Program Descriptions
 
-- **`FIFO`**: This program implements inter-process communication using FIFOs (named pipes). It consists of two programs, `p1_fifo` and `p2_fifo`, which communicate with each other by sending and receiving strings.
+- **`FIFO`**: This program implements inter-process communication using FIFOs (named pipes). It consists of two programs, `fifop1` and `fifop2`, which communicate with each other by sending and receiving strings.
 
-- **`Socket`**: This program demonstrates inter-process communication using Unix Sockets. Similar to FIFO IPC, it also consists of two programs, `p1_socket` and `p2_socket`, that exchange strings between each other.
+- **`Socket`**: This program demonstrates inter-process communication using Unix Sockets. Similar to FIFO IPC, it also consists of two programs, `socketp1` and `socketp2`, that exchange strings between each other.
 
-- **`Sharedmem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `p1_shared_memory` and `p2_shared_memory`, that share strings by utilizing shared memory segments.
+- **`Sharedmem`**: This program showcases inter-process communication using Shared Memory. It includes two programs, `sharedmemp1` and `sharedmemp2`, that share strings by utilizing shared memory segments.
 
 ## How to Run the Programs
 
@@ -20,19 +20,19 @@ To run the programs, follow these steps:
 
    - For FIFO IPC:
      ```
-     cd fifo
+     cd FIFO
      make
      ```
 
    - For Socket IPC:
      ```
-     cd socket
+     cd Socket
      make
      ```
 
    - For Shared Memory IPC:
      ```
-     cd sharedmem
+     cd Sharedmem
      make
      ```
 
@@ -43,28 +43,28 @@ To run the programs, follow these steps:
    - For FIFO IPC:
      ```
      Terminal 1:
-     ./p2_fifo
+     ./fifop1
 
      Terminal 2:
-     ./p1_fifo
+     ./fifop2
      ```
 
    - For Socket IPC:
      ```
      Terminal 1:
-     ./p2_socket
+     ./socketp2
 
      Terminal 2:
-     ./p1_socket
+     ./socketp1
      ```
 
    - For Shared Memory IPC:
      ```
      Terminal 1:
-     ./p2_shared_memory
+     ./sharedmemp2
 
      Terminal 2:
-     ./p1_shared_memory
+     ./sharedmemp1
      ```
 
    Make sure to start the receiving program (P2) before the sending program (P1) to establish proper communication.
